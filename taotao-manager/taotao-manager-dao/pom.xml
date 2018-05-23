@@ -45,5 +45,35 @@
 
 
 	</dependencies>
-	<build />
+
+	<build>
+		<resources>
+
+			<resource>
+				<!-- <targetPath>${project.build.directory}/classes</targetPath> -->
+
+				<directory>src/main/resources</directory>
+
+				<filtering>true</filtering>
+
+				<includes>
+					<include>**/*.xml</include>
+					<include>**/*.properties</include>
+				</includes>
+
+			</resource>
+
+
+			<resource>
+				<directory>src/main/java</directory>
+
+				<includes>
+					<include>**/*.properties</include>
+					<include>**/*.xml</include>
+					<include>**/*.tld</include>
+				</includes>
+				<filtering>false</filtering>
+			</resource>
+		</resources>
+	</build>
 </project>
