@@ -34,5 +34,7 @@
 
 	<!-- 发布dubbo服务 -->
 	<dubbo:service interface="com.taotao.service.ItemService"	ref="itemServiceImpl" timeout="10000"/>
+	
+	<dubbo:service interface="com.taotao.service.ItemCatService"	ref="itemCatServiceImpl" timeout="10000"/>
 
 </beans>
