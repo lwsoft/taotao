@@ -11,7 +11,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 public class TaotaoResult implements Serializable{
 
-    // 定义jackson对象
+    
+	private static final long serialVersionUID = -938588287977286683L;
+
+	// 定义jackson对象
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
     // 响应业务状态

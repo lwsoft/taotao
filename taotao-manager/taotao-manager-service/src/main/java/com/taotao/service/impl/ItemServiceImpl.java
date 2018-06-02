@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -48,6 +50,7 @@ public class ItemServiceImpl implements ItemService{
 		return resultList;
 	}
 	@Override
+	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
 	public TaotaoResult addItem(TbItem item, String desc) {
 		//生成商品ID 
 		long itemId = IDUtils.genItemId();
