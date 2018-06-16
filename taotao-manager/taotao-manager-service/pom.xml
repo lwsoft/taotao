@@ -86,6 +86,17 @@
 			<artifactId>junit</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-all</artifactId>
+		</dependency>
+		
+		<!-- Redis客户端 -->
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+		</dependency>
+
 	</dependencies>
 
 

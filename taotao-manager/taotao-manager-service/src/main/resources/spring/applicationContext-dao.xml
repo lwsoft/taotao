@@ -22,7 +22,7 @@
 
 	<!-- 配置数据库连接池 -->
 	<!-- 加载配置文件 -->
-	<context:property-placeholder location="classpath:properties/db.properties" />
+	<context:property-placeholder location="classpath:properties/*.properties" />
 	<!-- 数据库连接池 -->
 	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
 		init-method="init" destroy-method="close">
@@ -43,7 +43,7 @@
 		<property name="configLocation" value="classpath:mybatis/SqlMapConfig.xml" />
 		<property name="plugins">
 			<array>
-				<bean class="com.github.pagehelper.PageHelper">
+				<bean class="com.github.pagehelper.PageInterceptor">
 					<!-- 这里的几个配置主要演示如何使用，如果不理解，一定要去掉下面的配置 -->
 					<property name="properties">
 						<value>

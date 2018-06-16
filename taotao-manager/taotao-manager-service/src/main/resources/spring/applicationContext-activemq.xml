@@ -18,47 +18,29 @@
 		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.3.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
-
-
-	<!-- 配置数据库连接池 -->
-	<!-- 加载配置文件 -->
-	<context:property-placeholder location="classpath:properties/*.properties" />
-	<!-- 数据库连接池 -->
-	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
-		init-method="init" destroy-method="close">
-		<property name="url" value="${jdbc.url}" />
-		<property name="username" value="${jdbc.username}" />
-		<property name="password" value="${jdbc.password}" />
-		<property name="driverClassName" value="${jdbc.driver}" />
-		<property name="maxActive" value="10" />
-		<property name="minIdle" value="5" />
-	</bean>
-
-
-	<!-- 让spring管理sqlsessionfactory 使用mybatis和spring整合包中的 -->
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<!-- 数据库连接池 -->
-		<property name="dataSource" ref="dataSource" />
-		<!-- 加载mybatis的全局配置文件 -->
-		<property name="configLocation" value="classpath:mybatis/SqlMapConfig.xml" />
-		<property name="plugins">
-			<array>
-				<bean class="com.github.pagehelper.PageInterceptor">
-					<!-- 这里的几个配置主要演示如何使用，如果不理解，一定要去掉下面的配置 -->
-					<property name="properties">
-						<value>
-							helperDialect=mysql
-						</value>
-					</property>
-				</bean>
-			</array>
+	
+	
+	<bean id="activeMQConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+		<property name="brokerURL" value="tcp://192.168.136.128:61616">
 		</property>
-
 	</bean>
-	<!-- Mapper映射文件的包扫描器 -->
-	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.taotao.mapper" />
+	<!-- Spring用于管理真正的ConnectionFactory的ConnectionFactory -->  
+	<bean id="connectionFactory" class="org.springframework.jms.connection.SingleConnectionFactory">
+	
+		<property name="targetConnectionFactory" ref="activeMQConnectionFactory"/>
+		
 	</bean>
-
-
+	<!-- Spring提供的JMS工具类，它可以进行消息发送、接收等 -->  
+	<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory" ref="connectionFactory"></property>
+	</bean>
+	<!--这个是队列目的地，点对点的 -->  
+	<bean id="test-queue" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg name="name" value="test-queue"/>
+	</bean>
+	
+	<bean id="itemAddTopic" class="org.apache.activemq.command.ActiveMQTopic">
+		<constructor-arg name="name" value="item-add-topic"/>
+	</bean>
+	
 </beans>

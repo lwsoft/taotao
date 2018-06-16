@@ -58,4 +58,6 @@
 	
 	<dubbo:reference interface="com.taotao.content.service.ContentService" id="contentService" />
 	
+	<dubbo:reference interface="com.taotao.search.service.SearchItemService" id="searchItemService"/>
+	
 </beans>
