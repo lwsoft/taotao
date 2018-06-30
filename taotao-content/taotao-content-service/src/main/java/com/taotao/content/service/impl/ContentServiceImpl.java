@@ -12,13 +12,13 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.taotao.common.pojo.EasyUIDataGridResult;
 import com.taotao.common.pojo.TaotaoResult;
+import com.taotao.common.utils.JsonUtils;
 import com.taotao.content.service.ContentService;
 import com.taotao.jedis.JedisClient;
 import com.taotao.mapper.TbContentMapper;
 import com.taotao.pojo.TbContent;
 import com.taotao.pojo.TbContentExample;
 import com.taotao.pojo.TbContentExample.Criteria;
-import com.taotao.utils.JsonUtils;
 
 @Service
 public class ContentServiceImpl implements ContentService {
